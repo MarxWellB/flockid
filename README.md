@@ -57,7 +57,7 @@ and corporate commitments (Walmart, Kroger, McDonald's). In the EU,
 conventional battery cages have been banned since 2012. See
 `COMPETITIVE_LANDSCAPE.md` for full sources.
 
-## Competitive landscape (summary -- see `COMPETITIVE_LANDSCAPE.md`)
+## Competitive landscape (summary, see `COMPETITIVE_LANDSCAPE.md`)
 
 | Who | What they do | What they don't do |
 |---|---|---|
@@ -78,6 +78,24 @@ conventional battery cages have been banned since 2012. See
 | Custom tracker (Kalman+Mahalanobis+prior) | Benchmarked against **real ByteTrack, BoT-SORT, OC-SORT, and DeepSORT**, best IDF1 in 2/2 tested scenarios, with documented caveats |
 | Database + API (FastAPI/SQLite) | Running and tested with `curl` against real data from the full pipeline |
 | Full pipeline on real video | Run on **9 real chicken videos** (not just synthetic), found and fixed 2 real bugs (permissive NMS, fixed confidence threshold) with measured improvement (-29% to -30% identity fragmentation) |
+
+### Real-world tracker demo
+
+▶️ **[Watch the tracker running on unseen video](https://drive.google.com/file/d/1RnW71MNvqV99i1gwcBb9M9LY3187QQtd/view?usp=sharing)**
+
+This video is intentionally shown as an honest out-of-domain test, not as a
+polished best-case demo. The detector was trained on approximately 1,000 images
+from a different dataset and camera environment, none taken from the video shown
+here.
+
+Despite the domain mismatch, the model detects and tracks a meaningful portion
+of the birds. The main failures occur during dense grouping, heavy occlusion,
+scale changes, and visual overlap between nearly identical birds.
+
+These limitations are the reason the next stage is not simply more tracker
+tuning, but the creation of a farm-specific dataset through FlockTrack Copilot:
+automatic proposals for simple scenes, manual bounding-box correction for dense
+groups, multimodal review, active learning, and iterative retraining.
 
 ### Validated in simulation, with real documented findings
 
